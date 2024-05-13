@@ -70,9 +70,11 @@ public class ValemidElastsus {
                 message = "Sinu toote/teenuse hinnaelastsus on " + elastsus + ", ehk on elastne.\nSee tähendab, et sinu toode/teenus on üsna tundlik hinnamuutusele\nSoovitame sul jätkata praguse strateegiaga, et pigem hinda alanadada, sest nii suureneb su müügikogus\nVõiks ka kaaluda oma toote/teenuse eristamist teistest konkurentidest, et ei peaks kõige odavamat toodet turul hoidma. See võib küll koguseid suurendada, aga brändi kuvand jääb pigem odav ja mittekvaliteetne";
             }
         }
+        message += System.lineSeparator() + "Sinu ettevõtte käibe muutus oli " + käibeMuutus() + "%";
         // Kuva sõnum
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(null);
+        alert.setResizable(true);
         alert.setContentText(message);
         alert.showAndWait();
     }

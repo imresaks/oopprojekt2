@@ -31,7 +31,7 @@ public class Main extends Application {
 
         Scene scene = new Scene(root, 300, 200);
         primaryStage.setScene(scene);
-        primaryStage.show();
+        //primaryStage.show();
     }
 
     private void otsustaTegevus(String sisend) {
@@ -180,7 +180,7 @@ public class Main extends Application {
                 ValemidElastsus andmed = new ValemidElastsus(H1, H2, Q1, Q2);
                 andmed.hinnaelastsus(H1,H2, Q1, Q2);
                 // Kuvame tulemused
-                showErrorAlert("Tulemus", "Sinu ettevõtte käibe muutus oli " + andmed.käibeMuutus() + "%");
+                //showErrorAlert("Tulemus", "Sinu ettevõtte käibe muutus oli " + andmed.käibeMuutus() + "%");
             });
 
             root.getChildren().addAll(label1, textField1, label2, textField2, label3, textField3, label4, textField4, calculateButton);
