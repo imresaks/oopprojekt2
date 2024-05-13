@@ -27,9 +27,9 @@ public class Main extends Application {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Tervitus");
         dialog.setHeaderText("Tere tulemast!");
-        dialog.setContentText("Millega on sul täna abi vaja?\nVali h/r/m exit");
+        dialog.setContentText("Millega on sul täna abi vaja?\nVali h/r/m või exit");
 
-        dialog.showAndWait().ifPresent(this::otsustaTegevus);
+        dialog.showAndWait().ifPresent(this::otsustaTegevus); //klassi optional ja meetodit otsustaTegevus kasutades ootab, et kasutaja sisestaks midagi
 
         Scene scene = new Scene(root, 300, 200);
         primaryStage.setScene(scene);
@@ -58,6 +58,9 @@ public class Main extends Application {
 
     private void motivatsiooniprobleemid() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setResizable(true);
+        alert.setWidth(500);
+        alert.setHeight(500);
         alert.setTitle("Motivatsiooniprobleemid");
         alert.setHeaderText(null);
         alert.setContentText("Tundub, et sul on probleeme motivatsiooniga.\nÄra muretse, meie programm aitab sind taas tööle saada!");
