@@ -1,4 +1,7 @@
 package org.proj2.oopprojekt2;
+
+import javafx.scene.control.Alert;
+
 public class ValemidElastsus {
     private double H1;
     private double H2;
@@ -44,54 +47,34 @@ public class ValemidElastsus {
         Q2 = q2;
     }
 
-    public double hinnaelastsus(){
-        double elastsus1= ((Q2-Q1)/Q1)/((H2-H1)/H1);
-        double elastsus= (double) Math.round(elastsus1 * 10000) /10000;
-        if (elastsus<0)elastsus=elastsus*-1;
-        if (H2>H1) {
+    public void hinnaelastsus(double H1, double H2, double Q1, double Q2) {
+        double elastsus1 = ((Q2 - Q1) / Q1) / ((H2 - H1) / H1);
+        double elastsus = (double) Math.round(elastsus1 * 10000) / 10000;
+        if (elastsus < 0) elastsus = elastsus * -1;
+
+        String message;
+        if (H2 > H1) {
             if (elastsus == 1) {
-                System.out.println("Sinu toote/teenuse hinnaelastsus on " + elastsus + ", ehk on ühikelastne.");
-                System.out.println("See tähendab, et kui tõstsid hinda, siis kogus muutub täpselt samas proportsioonis, aga vastassuunas, sama kehtib hinda alandades");
-                System.out.println("Soovitame hinnakujunduse pidevat jälgimist ja kohandamist vastavalt turuolukorrale!");
+                message = "Sinu toote/teenuse hinnaelastsus on " + elastsus + ", ehk on ühikelastne.\nSee tähendab, et kui tõstsid hinda, siis kogus muutub täpselt samas proportsioonis, aga vastassuunas, sama kehtib hinda alandades\nSoovitame hinnakujunduse pidevat jälgimist ja kohandamist vastavalt turuolukorrale!";
+            } else if (elastsus < 1) {
+                message = "Sinu toote/teenuse hinnaelastsus on " + elastsus + ", ehk on mitte elastne.\nSee tähendab, et sinu toode/teenus pole nii tundlik hinnamuutusele\nSoovitame sul jätkata oma praguse hinnatõusu strateegiaga, aga mõistlikuse piires!\nVõiks ka kaaluda kvaliteedi või lisaväärtuse suurendamist veelgi, et õigustada kõrgemat hinda ja suurendada kasumit";
+            } else {
+                message = "Sinu toote/teenuse hinnaelastsus on " + elastsus + ", ehk on elastne.\nSee tähendab, et sinu toode/teenus on üsna tundlik hinnamuutusele\nSoovitame sul hinda pigem mitte tõsta, sest nii väheneb su müügikogus\nVõiks ka kaaluda oma toote/teenuse eristamist teistest konkurentidest, et tarbija kohe hinna väiksemagi tõusu juures teise odavama tootja juurde üle ei läheks";
             }
-            if (elastsus < 1) {
-                System.out.println("Sinu toote/teenuse hinnaelastsus on " + elastsus + ", ehk on mitte elastne.");
-                System.out.println("See tähendab, et sinu toode/teenus pole nii tundlik hinnamuutusele");
-                System.out.println("Soovitame sul jätkata oma praguse hinnatõusu strateegiaga, aga mõistlikuse piires!");
-                System.out.println("Võiks ka kaaluda kvaliteedi või lisaväärtuse suurendamist veelgi, et õigustada kõrgemat hinda ja suurendada kasumit");
-            }
-            if (elastsus > 1) {
-                System.out.println("Sinu toote/teenuse hinnaelastsus on " + elastsus + ", ehk on elastne.");
-                System.out.println("See tähendab, et sinu toode/teenus on üsna tundlik hinnamuutusele");
-                System.out.println("Soovitame sul hinda pigem mitte tõsta, sest nii väheneb su müügikogus");
-                System.out.println("Võiks ka kaaluda oma toote/teenuse eristamist teistest konkurentidest, et tarbija kohe hinna väiksemagi tõusu juures teise odavama tootja juurde üle ei läheks");
-
-
+        } else {
+            if (elastsus == 1) {
+                message = "Sinu toote/teenuse hinnaelastsus on " + elastsus + ", ehk on ühikelastne.\nSee tähendab, et kui muutsid hinda odavamaks, siis kogus muutub täpselt samas proportsioonis, aga vastassuunas, sama kehtib hinda tõstes\nSoovitame hinnakujunduse pidevat jälgimist ja kohandamist vastavalt turuolukorrale!";
+            } else if (elastsus < 1) {
+                message = "Sinu toote/teenuse hinnaelastsus on " + elastsus + ", ehk on mitte elastne.\nSee tähendab, et sinu toode/teenus pole nii tundlik hinnamuutusele\nSoovitame sul hinda pigem tõsta, aga mõistlikuse piires!\nVõiks ka kaaluda kvaliteedi või lisaväärtuse suurendamist, et õigustada kõrgemat hinda ja suurendada kasumit";
+            } else {
+                message = "Sinu toote/teenuse hinnaelastsus on " + elastsus + ", ehk on elastne.\nSee tähendab, et sinu toode/teenus on üsna tundlik hinnamuutusele\nSoovitame sul jätkata praguse strateegiaga, et pigem hinda alanadada, sest nii suureneb su müügikogus\nVõiks ka kaaluda oma toote/teenuse eristamist teistest konkurentidest, et ei peaks kõige odavamat toodet turul hoidma. See võib küll koguseid suurendada, aga brändi kuvand jääb pigem odav ja mittekvaliteetne";
             }
         }
-        if (H2<H1) {
-            if (elastsus == 1) {
-                System.out.println("Sinu toote/teenuse hinnaelastsus on " + elastsus + ", ehk on ühikelastne.");
-                System.out.println("See tähendab, et kui muutsid hinda odavamaks, siis kogus muutub täpselt samas proportsioonis, aga vastassuunas, sama kehtib hinda tõstes");
-                System.out.println("Soovitame hinnakujunduse pidevat jälgimist ja kohandamist vastavalt turuolukorrale!");
-            }
-            if (elastsus < 1) {
-                System.out.println("Sinu toote/teenuse hinnaelastsus on " + elastsus + ", ehk on mitte elastne.");
-                System.out.println("See tähendab, et sinu toode/teenus pole nii tundlik hinnamuutusele");
-                System.out.println("Soovitame sul hinda pigem tõsta, aga mõistlikuse piires!");
-                System.out.println("Võiks ka kaaluda kvaliteedi või lisaväärtuse suurendamist, et õigustada kõrgemat hinda ja suurendada kasumit");
-            }
-            if (elastsus > 1) {
-                System.out.println("Sinu toote/teenuse hinnaelastsus on " + elastsus + ", ehk on elastne.");
-                System.out.println("See tähendab, et sinu toode/teenus on üsna tundlik hinnamuutusele");
-                System.out.println("Soovitame sul jätkata praguse strateegiaga, et pigem hinda alanadada, sest nii suureneb su müügikogus");
-                System.out.println("Võiks ka kaaluda oma toote/teenuse eristamist teistest konkurentidest, et ei peaks kõige odavamat toodet turul hoidma. See võib küll koguseid suurendada, aga brändi kuvand jääb pigem odav ja mittekvaliteetne");
-
-
-            }
-
-        }
-        return elastsus;
+        // Kuva sõnum
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
     public double käibeMuutus(){
         return (double) Math.round((Q2*H2*100)/(Q1*H1)*100)/100;
