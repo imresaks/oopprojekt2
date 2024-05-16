@@ -86,11 +86,10 @@ public class ValemidElastsus {
 
     @Override
     public String toString() {
-        return "Vajalikud andmed elastsuse arvutamiseks{" +
-                "Esialgne hind=" + H1 +
-                ", Hind pärast muutmist =" + H2 +
-                ", Esialgne kogus=" + Q1 +
-                ", Kogust pärast hinna muutmist=" + Q2 +
-                '}';
+        return "Esialgne hind = " + H1 +
+                ", hind pärast muutmist = " + H2 +
+                ", esialgne kogus = " + Q1 +
+                ", kogus pärast hinna muutmist = " + Q2 +
+                ", käibemuutus = " + käibeMuutus() + "%.";
     }
 }

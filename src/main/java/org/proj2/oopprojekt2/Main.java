@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.Random;
 
@@ -171,6 +172,8 @@ public class Main extends Application {
 
         Label label4 = new Label("Palju müüsid muudetud hinna juures (kogus ühikutest)?");
         TextField textField4 = new TextField();
+        Label label5 = new Label("Mis on su firma nimi (jäta tühjaks kui ei soovi andmeid salvestada)");
+        TextField textField5 = new TextField();
 
         Button calculateButton = new Button("Arvuta");
         calculateButton.setOnAction(event -> {
@@ -179,11 +182,19 @@ public class Main extends Application {
             double H2 = Double.parseDouble(textField2.getText());
             double Q1 = Double.parseDouble(textField3.getText());
             double Q2 = Double.parseDouble(textField4.getText());
+            String firmanimi = textField5.getText();
 
             // Siin saame kasutada ValemidElastsus klassi arvutuste tegemiseks
             // Loome objekti ja anname sisendid konstruktorile
             ValemidElastsus andmed = new ValemidElastsus(H1, H2, Q1, Q2);
             andmed.hinnaelastsus(H1,H2, Q1, Q2);
+            if (!firmanimi.isEmpty()) {
+                try {
+                    failiTrükk(firmanimi, andmed, "firmaAndmed.txt");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
             stage.setResizable(true);
             // Kuvame tulemused
             //sulgeme eelmise stseeni, et see ette ei jääks
@@ -197,7 +208,8 @@ public class Main extends Application {
         root.addRow(1, label2, textField2);
         root.addRow(2, label3, textField3);
         root.addRow(3, label4, textField4);
-        root.add(calculateButton, 0, 4, 2, 1);
+        root.addRow(4, label5, textField5);
+        root.add(calculateButton, 0, 5, 2, 1);
 
         Scene scene = new Scene(root, 400, 300);
         stage.setScene(scene);
@@ -211,6 +223,11 @@ public class Main extends Application {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+    public static void failiTrükk(String firmanimi, Object obj, String failinimi) throws IOException {
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(failinimi, true), StandardCharsets.UTF_8))) {
+            bw.write(firmanimi + ": " + obj.toString() + System.lineSeparator());
+        }
     }
 
     public static void main(String[] args) {
