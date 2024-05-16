@@ -4,13 +4,11 @@ import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.Optional;
 import java.util.Random;
 
 public class Main extends Application {
@@ -49,7 +47,7 @@ public class Main extends Application {
                 Platform.exit();
                 break;
             default:
-                showErrorAlert("Halb sisend", "Vali üks järgnevatest valikutest: h/r/m/exit");
+                viskaErroriTeavitus("Halb sisend", "Vali üks järgnevatest valikutest: h/r/m/exit");
                 start(new Stage());
                 break;
         }
@@ -62,15 +60,17 @@ public class Main extends Application {
 
         Random rnd = new Random();
         int msgIndeks = rnd.nextInt(100);
-        alert.setContentText("Mõtteainet sulle:\n" + loeSõnumit("inspmsg.txt", msgIndeks));
+        alert.setContentText("Mõtteainet sulle:" + System.lineSeparator() + loeSõnumit("inspmsg.txt", msgIndeks));
         alert.setResizable(true);
+        alert.setWidth(500);
+        alert.setHeight(500);
         alert.showAndWait();
         //kutsume uuesti välja start meetodi
         start(new Stage());
     }
 
     private String loeSõnumit(String fileName, int msgIndeks) {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), "UTF-8"))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), StandardCharsets.UTF_8))) {
             String rida;
             int käesolevRida = 0;
             while ((rida = br.readLine()) != null) {
@@ -133,7 +133,7 @@ public class Main extends Application {
             // Kuvame tulemused
             alert.setWidth(600);
             alert.setHeight(500);
-            alert.setContentText("Palgakulu peaks olema " + ressurss.palk() + " optimaalse tootmise juures.\nSinu ettevõtte kogukulu optimaalse tootmise juures peaks olema: \n" + ressurss.kogukulu());
+            alert.setContentText("Palgakulu peaks olema " + Math.round(ressurss.palk() * 10000.0) / 10000.0 + " optimaalse tootmise juures.\nSinu ettevõtte kogukulu optimaalse tootmise juures peaks olema: \n" + Math.round(ressurss.kogukulu() * 100.0) / 100.0);
             alert.setResizable(true);
             alert.showAndWait();
 
@@ -225,12 +225,12 @@ public class Main extends Application {
     }
 
 
-    private void showErrorAlert(String title, String content) {
+    private void viskaErroriTeavitus(String pealkiri, String sisu) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
+        alert.setTitle(pealkiri);
         alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
+        alert.setContentText(sisu);
+        alert.showAndWait(); //ootab et kasutaja vajutaks ok
     }
     public static void failiTrükk(String firmanimi, Object obj, String failinimi) throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(failinimi, true), StandardCharsets.UTF_8))) {

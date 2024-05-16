@@ -77,6 +77,8 @@ public class ValemidElastsus {
         alert.setHeaderText(null);
         alert.setResizable(true);
         alert.setContentText(message);
+        alert.setWidth(900);
+        alert.setHeight(800);
         alert.showAndWait();
 
     }
