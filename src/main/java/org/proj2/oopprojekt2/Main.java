@@ -58,7 +58,7 @@ public class Main extends Application {
         alert.setHeight(500);
         alert.setTitle("Motivatsiooniprobleemid");
         alert.setHeaderText(null);
-        alert.setContentText("Tundub, et sul on probleeme motivatsiooniga.\nÄra muretse, meie programm aitab sind taas tööle saada!");
+        alert.setContentText("Tundub, et sul on probleeme motivatsiooniga." + System.lineSeparator() + "Ära muretse, meie programm aitab sind taas tööle saada!");
 
         try {
             Thread.sleep(2000); //sleep 2s et näeks naturaalsem välja
@@ -82,8 +82,6 @@ public class Main extends Application {
                 }
                 käesolevRida++;
             }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
