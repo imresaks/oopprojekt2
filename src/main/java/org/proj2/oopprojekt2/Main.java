@@ -58,13 +58,6 @@ public class Main extends Application {
         alert.setHeight(500);
         alert.setTitle("Motivatsiooniprobleemid");
         alert.setHeaderText(null);
-        alert.setContentText("Tundub, et sul on probleeme motivatsiooniga." + System.lineSeparator() + "Ära muretse, meie programm aitab sind taas tööle saada!");
-
-        try {
-            Thread.sleep(2000); //sleep 2s et näeks naturaalsem välja
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
 
         Random rnd = new Random();
         int msgIndeks = rnd.nextInt(100);
