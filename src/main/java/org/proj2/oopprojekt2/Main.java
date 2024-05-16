@@ -1,10 +1,11 @@
 package org.proj2.oopprojekt2;
-
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -17,16 +18,17 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("OOP Projekt 2");
 
-        VBox root = new VBox();
+        GridPane root = new GridPane();
+
 
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Väike ettevõtja tööriist");
         dialog.setHeaderText("Millega on sul täna abi vaja?\nVali h/r/m või exit");
-        dialog.setContentText("h - hinnaelastsuse arvutamine\nr - palgakulu leidmine ühe töötaja kohta\nm - motivatsiooni probleemid");
-
+        dialog.setContentText("h - hinnaelastsuse arvutamine\nr - palgakulu leidmine ühe töötaja kohta\n    (optimaalse tootmise juures)\nm - motivatsiooni probleemid");
+        dialog.setResizable(true);
         dialog.showAndWait().ifPresent(this::otsustaTegevus); //klassi optional ja meetodit otsustaTegevus kasutades ootab, et kasutaja sisestaks midagi
 
-        Scene scene = new Scene(root, 300, 200);
+        Scene scene = new Scene(root, 400, 300);
         primaryStage.setScene(scene);
 
     }
@@ -47,21 +49,20 @@ public class Main extends Application {
                 break;
             default:
                 showErrorAlert("Halb sisend", "Vali üks järgnevatest valikutest: h/r/m/exit");
+                start(new Stage());
                 break;
         }
     }
 
     private void motivatsiooniprobleemid() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setResizable(true);
-        alert.setWidth(500);
-        alert.setHeight(500);
         alert.setTitle("Motivatsiooniprobleemid");
         alert.setHeaderText(null);
 
         Random rnd = new Random();
         int msgIndeks = rnd.nextInt(100);
         alert.setContentText("Mõtteainet sulle:\n" + loeSõnumit("inspmsg.txt", msgIndeks));
+        alert.setResizable(true);
         alert.showAndWait();
         //kutsume uuesti välja start meetodi
         start(new Stage());
@@ -85,13 +86,14 @@ public class Main extends Application {
 
     private void ressursideOptimiseerimine() {
         Stage stage = new Stage();
-        stage.setResizable(true);
-        stage.setHeight(500);
-        stage.setWidth(500);
         stage.setTitle("Ressurside optimiseerimine");
 
-        VBox root = new VBox();
-        root.setSpacing(7);
+        GridPane root = new GridPane();
+        root.setPadding(new Insets(10));
+        root.setHgap(10);
+        root.setVgap(10);
+        stage.setWidth(550);
+        stage.setHeight(320);
 
         Label label1 = new Label("Palju sul oli aasta tagasi töötajaid?");
         TextField textField1 = new TextField();
@@ -105,7 +107,7 @@ public class Main extends Application {
         Label label4 = new Label("Palju on sul praegu kapitali (kogus ühikutes)?");
         TextField textField4 = new TextField();
 
-        Label label5 = new Label("Palju muutus sinu tootmiskogus võrreldes eelmise aastaga (koguse muutus ühikutes)?");
+        Label label5 = new Label("Palju muutus sinu tootmiskogus võrreldes eelmise aastaga \n(koguse muutus ühikutes)?");
         TextField textField5 = new TextField();
 
         Label label6 = new Label("Palju maksab praegu üks ühik kapitali?");
@@ -124,7 +126,7 @@ public class Main extends Application {
 
             // Siin saame kasutada ValemidPalkKogukulu klassi arvutuste tegemiseks
             // Loome objekti ja anname sisendid konstruktorile
-            ValemidPalkKogukulu ressurss = new ValemidPalkKogukulu(Deltaq, K1, K2, L1, L2, r); // Määrame 0-deltaQ ja 0-r, kuna neid sisendeid me ei küsi
+            ValemidPalkKogukulu ressurss = new ValemidPalkKogukulu(Deltaq, K1, K2, L1, L2, r);
             // Kuvame tulemused
             showErrorAlert("Tulemus", "Palgakulu peaks olema " + ressurss.palk() + " optimaalse tootmise juures.\nSinu ettevõtte kogukulu optimaalse tootmise juures peaks olema: " + ressurss.kogukulu());
 
@@ -134,64 +136,73 @@ public class Main extends Application {
             start(new Stage());
 
         });
-
-        root.getChildren().addAll(label1, textField1, label2, textField2, label3, textField3, label4, textField4, label5, textField5, label6, textField6,calculateButton);
+        root.addRow(0, label1, textField1);
+        root.addRow(1, label2, textField2);
+        root.addRow(2, label3, textField3);
+        root.addRow(3, label4, textField4);
+        root.addRow(4, label5, textField5);
+        root.addRow(5, label6, textField6);
+        root.add(calculateButton, 0, 6, 2, 1);
 
         Scene scene = new Scene(root, 400, 300);
         stage.setScene(scene);
         stage.show();
-
-
     }
 
     private void hinnaMuutmine() {
+        Stage stage = new Stage();
+        stage.setTitle("Hinna muutmine");
 
-            Stage stage = new Stage();
-            stage.setTitle("Hinna muutmine");
+        GridPane root = new GridPane();
+        root.setPadding(new Insets(10));
+        root.setHgap(10);
+        root.setVgap(10);
+        stage.setWidth(550);
+        stage.setHeight(250);
 
-            VBox root = new VBox();
-            root.setSpacing(7);
+        Label label1 = new Label("Sisesta, mis oli su toote/teenuse hind enne hinna muutmist?");
+        TextField textField1 = new TextField();
 
-            Label label1 = new Label("Sisesta, mis oli su toote/teenuse hind enne hinna muutmist?");
-            TextField textField1 = new TextField();
+        Label label2 = new Label("Sisesta, mis oli su toote/teenuse hind peale hinna muutmist?");
+        TextField textField2 = new TextField();
 
-            Label label2 = new Label("Sisesta, mis oli su toote/teenuse hind peale hinna muutmist?");
-            TextField textField2 = new TextField();
+        Label label3 = new Label("Palju müüsid esialgse hinna juures (kogus ühikutes)?");
+        TextField textField3 = new TextField();
 
-            Label label3 = new Label("Palju müüsid esialgse hinna juures (kogus ühikutes)?");
-            TextField textField3 = new TextField();
+        Label label4 = new Label("Palju müüsid muudetud hinna juures (kogus ühikutest)?");
+        TextField textField4 = new TextField();
 
-            Label label4 = new Label("Palju müüsid muudetud hinna juures (kogus ühikutest)?");
-            TextField textField4 = new TextField();
+        Button calculateButton = new Button("Arvuta");
+        calculateButton.setOnAction(event -> {
+            // Võtame sisendi tekstiväljadest
+            double H1 = Double.parseDouble(textField1.getText());
+            double H2 = Double.parseDouble(textField2.getText());
+            double Q1 = Double.parseDouble(textField3.getText());
+            double Q2 = Double.parseDouble(textField4.getText());
 
-            Button calculateButton = new Button("Arvuta");
-            calculateButton.setOnAction(event -> {
-                // Võtame sisendi tekstiväljadest
-                double H1 = Double.parseDouble(textField1.getText());
-                double H2 = Double.parseDouble(textField2.getText());
-                double Q1 = Double.parseDouble(textField3.getText());
-                double Q2 = Double.parseDouble(textField4.getText());
+            // Siin saame kasutada ValemidElastsus klassi arvutuste tegemiseks
+            // Loome objekti ja anname sisendid konstruktorile
+            ValemidElastsus andmed = new ValemidElastsus(H1, H2, Q1, Q2);
+            andmed.hinnaelastsus(H1,H2, Q1, Q2);
+            stage.setResizable(true);
+            // Kuvame tulemused
+            //sulgeme eelmise stseeni, et see ette ei jääks
+            stage.close();
+            //kutsume uuesti start meetodi välja
+            start(new Stage());
 
-                // Siin saame kasutada ValemidElastsus klassi arvutuste tegemiseks
-                // Loome objekti ja anname sisendid konstruktorile
-                ValemidElastsus andmed = new ValemidElastsus(H1, H2, Q1, Q2);
-                andmed.hinnaelastsus(H1,H2, Q1, Q2);
-                // Kuvame tulemused
-                //sulgeme eelmise stseeni, et see ette ei jääks
-                stage.close();
-                //kutsume uuesti start meetodi välja
-                start(new Stage());
+        });
 
-            });
+        root.addRow(0, label1, textField1);
+        root.addRow(1, label2, textField2);
+        root.addRow(2, label3, textField3);
+        root.addRow(3, label4, textField4);
+        root.add(calculateButton, 0, 4, 2, 1);
 
-            root.getChildren().addAll(label1, textField1, label2, textField2, label3, textField3, label4, textField4, calculateButton);
-
-            Scene scene = new Scene(root, 400, 300);
-            stage.setScene(scene);
-            stage.show();
-
-
-        }
+        Scene scene = new Scene(root, 400, 300);
+        stage.setScene(scene);
+        stage.show();
+    }
 
 
     private void showErrorAlert(String title, String content) {
