@@ -1,6 +1,7 @@
 package org.proj2.oopprojekt2;
 
 import javafx.scene.control.Alert;
+import javafx.stage.Stage;
 
 public class ValemidElastsus {
     private double H1;
@@ -77,6 +78,7 @@ public class ValemidElastsus {
         alert.setResizable(true);
         alert.setContentText(message);
         alert.showAndWait();
+
     }
     public double käibeMuutus(){
         return (double) Math.round((Q2*H2*100)/(Q1*H1)*100)/100;

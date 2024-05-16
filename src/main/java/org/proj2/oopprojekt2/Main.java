@@ -28,7 +28,7 @@ public class Main extends Application {
 
         Scene scene = new Scene(root, 300, 200);
         primaryStage.setScene(scene);
-        //primaryStage.show();
+
     }
 
     private void otsustaTegevus(String sisend) {
@@ -63,6 +63,8 @@ public class Main extends Application {
         int msgIndeks = rnd.nextInt(100);
         alert.setContentText("Mõtteainet sulle:\n" + loeSõnumit("inspmsg.txt", msgIndeks));
         alert.showAndWait();
+        //kutsume uuesti välja start meetodi
+        start(new Stage());
     }
 
     private String loeSõnumit(String fileName, int msgIndeks) {
@@ -125,6 +127,12 @@ public class Main extends Application {
             ValemidPalkKogukulu ressurss = new ValemidPalkKogukulu(Deltaq, K1, K2, L1, L2, r); // Määrame 0-deltaQ ja 0-r, kuna neid sisendeid me ei küsi
             // Kuvame tulemused
             showErrorAlert("Tulemus", "Palgakulu peaks olema " + ressurss.palk() + " optimaalse tootmise juures.\nSinu ettevõtte kogukulu optimaalse tootmise juures peaks olema: " + ressurss.kogukulu());
+
+            //sulgeme eelmise stseeni, et see ette ei jääks
+            stage.close();
+            //kutsume uuesti start meetodi välja
+            start(new Stage());
+
         });
 
         root.getChildren().addAll(label1, textField1, label2, textField2, label3, textField3, label4, textField4, label5, textField5, label6, textField6,calculateButton);
@@ -132,6 +140,7 @@ public class Main extends Application {
         Scene scene = new Scene(root, 400, 300);
         stage.setScene(scene);
         stage.show();
+
 
     }
 
@@ -168,7 +177,11 @@ public class Main extends Application {
                 ValemidElastsus andmed = new ValemidElastsus(H1, H2, Q1, Q2);
                 andmed.hinnaelastsus(H1,H2, Q1, Q2);
                 // Kuvame tulemused
-                //showErrorAlert("Tulemus", "Sinu ettevõtte käibe muutus oli " + andmed.käibeMuutus() + "%");
+                //sulgeme eelmise stseeni, et see ette ei jääks
+                stage.close();
+                //kutsume uuesti start meetodi välja
+                start(new Stage());
+
             });
 
             root.getChildren().addAll(label1, textField1, label2, textField2, label3, textField3, label4, textField4, calculateButton);
@@ -176,6 +189,8 @@ public class Main extends Application {
             Scene scene = new Scene(root, 400, 300);
             stage.setScene(scene);
             stage.show();
+
+
         }
 
 
