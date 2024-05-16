@@ -23,9 +23,9 @@ public class Main extends Application {
         VBox root = new VBox();
 
         TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Tervitus");
-        dialog.setHeaderText("Tere tulemast!");
-        dialog.setContentText("Millega on sul täna abi vaja?\nVali h/r/m või exit");
+        dialog.setTitle("Väike ettevõtja tööriist");
+        dialog.setHeaderText("Millega on sul täna abi vaja?\nVali h/r/m või exit");
+        dialog.setContentText("h - hinnaelastsuse arvutamine\nr - palgakulu leidmine ühe töötaja kohta\nm - motivatsiooni probleemid");
 
         dialog.showAndWait().ifPresent(this::otsustaTegevus); //klassi optional ja meetodit otsustaTegevus kasutades ootab, et kasutaja sisestaks midagi
 
