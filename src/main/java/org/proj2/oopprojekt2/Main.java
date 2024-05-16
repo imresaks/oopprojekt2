@@ -23,7 +23,7 @@ public class Main extends Application {
 
 
         TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Väike ettevõtja tööriist");
+        dialog.setTitle("Väikeettevõtja tööriist");
         dialog.setHeaderText("Millega on sul täna abi vaja?\nVali h/r/m või exit");
         dialog.setContentText("h - hinnaelastsuse arvutamine\nr - palgakulu leidmine ühe töötaja kohta\n    (optimaalse tootmise juures)\nm - motivatsiooni probleemid");
         dialog.setResizable(true);
@@ -124,12 +124,20 @@ public class Main extends Application {
             int Deltaq = Integer.parseInt(textField5.getText());
             int r = Integer.parseInt(textField6.getText());
 
-
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Tulemused");
+            alert.setHeaderText(null);
             // Siin saame kasutada ValemidPalkKogukulu klassi arvutuste tegemiseks
             // Loome objekti ja anname sisendid konstruktorile
             ValemidPalkKogukulu ressurss = new ValemidPalkKogukulu(Deltaq, K1, K2, L1, L2, r);
             // Kuvame tulemused
-            showErrorAlert("Tulemus", "Palgakulu peaks olema " + ressurss.palk() + " optimaalse tootmise juures.\nSinu ettevõtte kogukulu optimaalse tootmise juures peaks olema: " + ressurss.kogukulu());
+            alert.setWidth(600);
+            alert.setHeight(500);
+            alert.setContentText("Palgakulu peaks olema " + ressurss.palk() + " optimaalse tootmise juures.\nSinu ettevõtte kogukulu optimaalse tootmise juures peaks olema: \n" + ressurss.kogukulu());
+            alert.setResizable(true);
+            alert.showAndWait();
+
+
 
             //sulgeme eelmise stseeni, et see ette ei jääks
             stage.close();
@@ -145,7 +153,7 @@ public class Main extends Application {
         root.addRow(5, label6, textField6);
         root.add(calculateButton, 0, 6, 2, 1);
 
-        Scene scene = new Scene(root, 400, 300);
+        Scene scene = new Scene(root, 550, 320);
         stage.setScene(scene);
         stage.show();
     }
