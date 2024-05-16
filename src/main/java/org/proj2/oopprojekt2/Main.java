@@ -7,10 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Optional;
 import java.util.Random;
 
@@ -76,7 +73,7 @@ public class Main extends Application {
     }
 
     private String loeSõnumit(String fileName, int msgIndeks) {
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), "UTF-8"))) {
             String rida;
             int käesolevRida = 0;
             while ((rida = br.readLine()) != null) {
